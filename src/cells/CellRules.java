@@ -13,7 +13,7 @@ public class CellRules {
 
         System.out.println("Cell Rules");
 
-        System.out.println(player + " "+next_player);
+        System.out.println(player + " " + next_player);
 
         int input_row_now_int = Integer.parseInt(input_row_now);
         int input_column_now_int = Integer.parseInt(input_column_now);
@@ -35,7 +35,7 @@ public class CellRules {
             System.out.println("OK");
             chipsLocationOne[input_column_new_int * 10 + input_row_new_int] = player;
             chipsLocationOne[input_column_now_int * 10 + input_row_now_int] = "0";
-        } else if (Objects.equals(chipsLocationOne[input_column_new_int * 9 + input_row_new_int], next_player)) {
+        } else if (Objects.equals(chipsLocationOne[input_column_new_int * 10 + input_row_new_int], next_player)) {
             System.out.println("OK");
             chipsLocationOne[input_column_new_int * 10 + input_row_new_int] = player;
             chipsLocationOne[input_column_now_int * 10 + input_row_now_int] = next_player;
