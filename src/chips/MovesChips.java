@@ -89,7 +89,7 @@ public class MovesChips {
                 //check rules
                 System.out.println("OK");
                 cells.CellRules.cellRules(input_row_now, input_column_now, input_row_new, input_column_new,
-                        chipsLocation, grid, player, next_player);
+                        chipsLocation, grid, player, next_player, stickRoll);
             }
         }
     }
