@@ -36,6 +36,8 @@ public class CellRules {
         int checkIfState = 0;
         checkIfState = checkTheAmountOfChips(gridOneOnlyOneRow, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player);
 
+        System.out.println("checkIfState: " + checkIfState);
+
         if(checkIfState >= 3) {
             System.out.println("You can't move, because next player have 3 or more chips in a row");
             Main.game(chipsLocation, grid, player, next_player);
@@ -49,39 +51,16 @@ public class CellRules {
                 }
                 else{
                     System.out.println("OK, you can move");
-                    moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player);
+                    moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
                 }
             } else {
                 System.out.println("OK, you can move");
-                moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player);
+                moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
             }
         }
         else{
-            moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player);
+            moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
         }
-
-        //made matrix 3 rows 10 colums from chipsLocationOne
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 10; j++) {
-                chipsLocation[i][j] = chipsLocationOne[i * 10 + j];
-            }
-        }
-
-        System.out.println("");
-        System.out.println(Arrays.deepToString(chipsLocation));
-
-        //print grid
-        for (int i = 0; i < 3; i++) {
-            System.out.println("");
-            for (int j = 0; j < 10; j++) {
-                System.out.print(chipsLocation[i][j] + "    ");
-            }
-        }
-
-        System.out.println("");
-        System.out.println("Next Player");
-        System.out.println("");
-        Main.game(chipsLocation, grid, player, next_player);
 
     }
 
@@ -98,13 +77,21 @@ public class CellRules {
         } else {
             unknown = input_row_new_int;
         }
-        int DifOfCells = input_column_now_int * 10 + input_row_now_int - (input_column_new_int * 10 + unknown);
+        int DifOfCells = input_column_now_int * 10 + input_row_now_int - (input_column_new_int * 10 + unknown) + 1;
+
+        System.out.println("liczba: " + Math.abs(DifOfCells));
 
         //
+        int control = 0;
         String[] newArrayOfChips = new String[Math.abs(DifOfCells)];
         for (int i = 0; i < gridOneOnlyOneRow.length; i++) {
-            if (i > input_column_now_int * 10 + input_row_now_int || i < input_column_new_int * 10 + input_row_new_int) {
-                newArrayOfChips[i] = gridOneOnlyOneRow[i];
+            if (i > input_column_now_int * 10 + input_row_now_int && i <= input_column_new_int * 10 + unknown) {
+                System.out.println("i: " + i);
+                System.out.println("gridOneOnlyOneRow[i]: " + gridOneOnlyOneRow[i]);
+                //add the chips to the new array
+                newArrayOfChips[i - control] = gridOneOnlyOneRow[i];
+            } else {
+                control++;
             }
         }
         System.out.println("newArrayOfChips: " + Arrays.toString(newArrayOfChips));
@@ -151,7 +138,9 @@ public class CellRules {
         return temp;
     }
 
-    public static void moves(String[] chipsLocationOne, int input_row_now_int, int input_column_now_int, int input_row_new_int, int input_column_new_int, String player, String next_player) {
+    public static void moves(String[] chipsLocationOne, int input_row_now_int, int input_column_now_int,
+                             int input_row_new_int, int input_column_new_int, String player, String next_player,
+                             String[][] chipsLocation, String[][] grid) {
         if (Objects.equals(chipsLocationOne[input_column_new_int * 10 + input_row_new_int], "0")) {
             System.out.println("OK");
             chipsLocationOne[input_column_new_int * 10 + input_row_new_int] = player;
@@ -160,6 +149,33 @@ public class CellRules {
             System.out.println("OK");
             chipsLocationOne[input_column_new_int * 10 + input_row_new_int] = player;
             chipsLocationOne[input_column_now_int * 10 + input_row_now_int] = next_player;
+        }
+
+        //made matrix 3 rows 10 colums from chipsLocationOne
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 10; j++) {
+                chipsLocation[i][j] = chipsLocationOne[i * 10 + j];
+            }
+        }
+
+        System.out.println("");
+        System.out.println(Arrays.deepToString(chipsLocation));
+
+        //print grid
+        for (int i = 0; i < 3; i++) {
+            System.out.println("");
+            for (int j = 0; j < 10; j++) {
+                System.out.print(chipsLocation[i][j] + "    ");
+            }
+        }
+
+        System.out.println("");
+        System.out.println("Next Player");
+        System.out.println("");
+        try {
+            Main.game(chipsLocation, grid, player, next_player);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
