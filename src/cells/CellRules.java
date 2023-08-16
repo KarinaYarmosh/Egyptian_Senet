@@ -12,10 +12,6 @@ public class CellRules {
                                  String[][] chipsLocation, String[][] grid, String player,
                                  String next_player, int stickRoll) throws IOException {
 
-        System.out.println("Cell Rules");
-
-        System.out.println(player + " " + next_player);
-
         int input_row_now_int = Integer.parseInt(input_row_now);
         int input_column_now_int = Integer.parseInt(input_column_now);
         int input_row_new_int = Integer.parseInt(input_row_new);
@@ -37,9 +33,7 @@ public class CellRules {
         checkIfState = checkTheAmountOfChips(gridOneOnlyOneRow, input_row_now_int, input_column_now_int,
                 input_row_new_int, input_column_new_int, player, next_player);
 
-        System.out.println("checkIfState: " + checkIfState);
-
-        RulesOfTheGame.chechState(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
+        RulesOfTheGame.checkState(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
                 input_column_new_int, player, next_player, chipsLocation, grid, checkIfState, stickRoll, gridOneOnlyOneRow);
 
     }
@@ -66,8 +60,6 @@ public class CellRules {
 
         newArrayOfChips = usableFunctions.FillNewArrayOfChips.fillArray(DifOfCells, input_row_now_int, input_column_now_int,
                 gridOneOnlyOneRow, newArrayOfChips, control, controlLength);
-
-        System.out.println("newArrayOfChips: " + Arrays.toString(newArrayOfChips));
 
         try {
             numberOFAnoutherPlayerChips = HowManyChipsInARow(newArrayOfChips, next_player, numberOFAnoutherPlayerChips);

@@ -1,4 +1,4 @@
-package cells;
+package gridRules;
 
 public class Grid {
 

@@ -1,6 +1,7 @@
 package main;
 
 import chips.MovesChips;
+import gridRules.Grid;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class Main {
         SelectGameMode.selectGameMode();
 
         //run Grid class
-        cells.Grid.grid(grid);
+        Grid.grid(grid);
         System.out.println("");
 
         //run GameChips class

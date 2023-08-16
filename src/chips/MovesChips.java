@@ -84,14 +84,12 @@ public class MovesChips {
             move(chipsLocation, grid, player, stickRoll, next_player);
         }
         else {
-            System.out.println("OK");
             if(Objects.equals(chipsLocation[input_column_new_int][input_row_new_int], player)) {
                 System.out.println("Try Again, you can't move to a cell with your own chip on it");
                 move(chipsLocation, grid, player, stickRoll, next_player);
             }
             else {
                 //check rules
-                System.out.println("OK");
                 cells.CellRules.cellRules(input_row_now, input_column_now, input_row_new, input_column_new,
                         chipsLocation, grid, player, next_player, stickRoll);
             }
