@@ -2,13 +2,8 @@ package chips;
 
 public class GameChips {
     public static int gameChips(String[][] chipsLocation, int blackChips, int whiteChips) {
-        //System.out.println("Game Chips");
 
-//        int blackChips = 0;
-//        int whiteChips = 0;
-
-        //String[][] chipsLocation = new String[3][10];
-
+        //chips location array
         for (int i = 0; i < chipsLocation.length; i++) {
             for (int j = 0; j < 10; j++) {
                 if ((i == 0) && (j % 2 == 0)) {
@@ -21,6 +16,7 @@ public class GameChips {
             }
         }
 
+        //print chips location array
         for (int i = 0; i < chipsLocation.length; i++) {
             System.out.println("");
             for (int j = 0; j < 10; j++) {
@@ -33,21 +29,13 @@ public class GameChips {
             }
         }
 
-        System.out.println("");
-        System.out.println("Black Chips: " + blackChips);
-        System.out.println("White Chips: " + whiteChips);
+//        System.out.println("");
+//        System.out.println("Black Chips: " + blackChips);
+//        System.out.println("White Chips: " + whiteChips);
 
-        if (blackChips == 0) {
-            System.out.println("Black Wins");
-            return 0;
-        }
-        else if (whiteChips == 0) {
-            System.out.println("White Wins");
-            return 0;
-        }
-        else {
-            System.out.println("Game Continues");
-        }
+        //check if game is over
+        usableFunctions.GameOver.endOfGame(blackChips, whiteChips);
+
         return blackChips;
     }
 }

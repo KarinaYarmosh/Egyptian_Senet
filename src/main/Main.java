@@ -7,17 +7,14 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        //run SelectGameMode class
-        //SelectGameMode.selectGameMode();
-//        int checkThePlayerTurn = 0;
-//        int stickRoll = 0;
+
         int blackChips = 0;
         int whiteChips = 0;
+
         String player = "W";
         String next_player = "B";
         String[][] chipsLocation = new String[3][10];
         String[][] grid = new String[3][10];
-
 
         System.out.println("Game Start");
 
@@ -26,13 +23,12 @@ public class Main {
 
         //run Grid class
         cells.Grid.grid(grid);
-
-        //
         System.out.println("");
 
-        // run GameChips class
+        //run GameChips class
         chips.GameChips.gameChips(chipsLocation, blackChips, whiteChips);
 
+        //run game
         game(chipsLocation, grid, player, next_player);
 
     }
@@ -49,14 +45,11 @@ public class Main {
 
         //run StickMechanics class
         stickRoll = skicks.StickMechanics.rollStick(stickRoll);
-
-        //
         System.out.println("");
 
         //run MoveChips class with integer checkThePlayerTurn
         MovesChips.moveChips(chipsLocation, grid, stickRoll, player, next_player);
 
     }
-
 
 }

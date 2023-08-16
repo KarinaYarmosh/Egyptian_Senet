@@ -1,15 +1,13 @@
 package cells;
 
 public class Grid {
+
     //graphical representation of the grid of cells 10x3
     //        cell size 10*10, 1000*300 grid
     public static void grid(String[][] grid) {
 
         //consol grid matrix representation of the grid of cells 10x3
-        //        cell size 10*10, 1000*300 grid
-        //String[][] grid = new String[3][10];
-
-        //fill grid with 0s
+        //cell size 10*10, 1000*300 grid
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < 10; j++) {
 
@@ -46,8 +44,5 @@ public class Grid {
                 System.out.print(grid[i][j] + "    ");
             }
         }
-
-
-
     }
 }

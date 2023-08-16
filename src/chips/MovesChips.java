@@ -12,13 +12,14 @@ public class MovesChips {
                                  String player, String next_player) throws IOException {
 
         System.out.println("Move Chips");
-
         System.out.println("Player: " + player);
         move(chipsLocation, grid, player, stickRoll, next_player);
+
     }
 
     public static void move(String[][] chipsLocation, String[][] grid, String player,
                             int stickRoll, String next_player) throws IOException {
+
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         String input_row_now = "0";
@@ -29,11 +30,10 @@ public class MovesChips {
         //user input
         System.out.println("Enter the column of the chip you want to move: ");
         input_column_now = bufferedReader.readLine();
+
         System.out.println("Enter the row of the chip you want to move: ");
         input_row_now = bufferedReader.readLine();
 
-//        System.out.println("CL: " + chipsLocation[Integer.parseInt(input_row_now)][Integer.parseInt(input_column_now)]);
-//        System.out.println("Player: " + player);
 
         System.out.println("Your cell: " + chipsLocation[Integer.parseInt(input_column_now)][Integer.parseInt(input_row_now)]);
         System.out.println("player: " + player);
@@ -66,8 +66,10 @@ public class MovesChips {
         int input_column_new_int = Integer.parseInt(input_column_new);
 
         int DifOfCells = 0;
-        if(input_row_now_int > 9 || input_row_new_int > 9 || input_row_now_int < 0 || input_row_new_int < 0
-                || input_column_now_int > 2 || input_column_new_int > 2 || input_column_now_int < 0 || input_column_new_int < 0) {
+
+        if(input_row_now_int > 9 || input_row_new_int > 9 || input_row_now_int < 0 ||
+                input_row_new_int < 0 || input_column_now_int > 2 || input_column_new_int > 2 ||
+                input_column_now_int < 0 || input_column_new_int < 0) {
             System.out.println("Try Again, you can't move out of the grid");
             move(chipsLocation, grid, player, stickRoll, next_player);
         }
