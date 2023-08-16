@@ -37,7 +37,8 @@ public class Main {
 
     }
 
-    public static void game(String[][] chipsLocation, String[][] grid, String player, String next_player) throws IOException {
+    public static void game(String[][] chipsLocation, String[][] grid, String player,
+                            String next_player) throws IOException {
 
         //swap players
         String temp = player;

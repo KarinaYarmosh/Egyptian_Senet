@@ -1,12 +1,15 @@
 package chips;
 
+import usableFunctions.CellsDif;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class MovesChips {
-    public static void moveChips(String[][] chipsLocation, String[][] grid, int stickRoll, String player, String next_player) throws IOException {
+    public static void moveChips(String[][] chipsLocation, String[][] grid, int stickRoll,
+                                 String player, String next_player) throws IOException {
 
         System.out.println("Move Chips");
 
@@ -14,7 +17,8 @@ public class MovesChips {
         move(chipsLocation, grid, player, stickRoll, next_player);
     }
 
-    public static void move(String[][] chipsLocation, String[][] grid, String player, int stickRoll, String next_player) throws IOException {
+    public static void move(String[][] chipsLocation, String[][] grid, String player,
+                            int stickRoll, String next_player) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         String input_row_now = "0";
@@ -40,7 +44,8 @@ public class MovesChips {
             System.out.println("Enter the row of the cell you want to move to: ");
             input_row_new = bufferedReader.readLine();
 
-            simpleRules(input_row_now, input_column_now, input_row_new, input_column_new, chipsLocation, grid, player, stickRoll, next_player);
+            simpleRules(input_row_now, input_column_now, input_row_new, input_column_new, chipsLocation, grid,
+                    player, stickRoll, next_player);
         }
         else {
             System.out.println("Try Again");
@@ -49,7 +54,9 @@ public class MovesChips {
 
     }
 
-    public static void simpleRules(String input_row_now, String input_column_now, String input_row_new, String input_column_new, String[][] chipsLocation, String[][] grid, String player, int stickRoll, String next_player) throws IOException {
+    public static void simpleRules(String input_row_now, String input_column_now, String input_row_new,
+                                   String input_column_new, String[][] chipsLocation, String[][] grid,
+                                   String player, int stickRoll, String next_player) throws IOException {
 
         System.out.println("Simple Rules");
 
@@ -66,13 +73,8 @@ public class MovesChips {
         }
         else {
             int unknown = 0;
-            if(input_column_new_int == 1) {
-                unknown = 9 - input_row_new_int;
-            } else {
-                unknown = input_row_new_int;
-            }
-            DifOfCells = input_column_now_int * 10 + input_row_now_int - (input_column_new_int * 10 + unknown);
-            System.out.println("DifOfCells: " + Math.abs(DifOfCells));
+            DifOfCells = CellsDif.DifOfCells(DifOfCells, input_row_now_int, input_column_now_int,
+                    input_row_new_int, input_column_new_int, unknown);
         }
 
         if(Math.abs(DifOfCells) != stickRoll) {

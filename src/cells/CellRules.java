@@ -2,6 +2,7 @@ package cells;
 
 import chips.MovesChips;
 import main.Main;
+import usableFunctions.CellsDif;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,7 +11,8 @@ import java.util.Objects;
 public class CellRules {
 
     public static void cellRules(String input_row_now, String input_column_now, String input_row_new, String input_column_new,
-                                 String[][] chipsLocation, String[][] grid, String player, String next_player, int stickRoll) throws IOException {
+                                 String[][] chipsLocation, String[][] grid, String player,
+                                 String next_player, int stickRoll) throws IOException {
 
         System.out.println("Cell Rules");
 
@@ -34,32 +36,36 @@ public class CellRules {
         System.out.println("gridOneOnlyOneRow: " + Arrays.toString(gridOneOnlyOneRow));
 
         int checkIfState = 0;
-        checkIfState = checkTheAmountOfChips(gridOneOnlyOneRow, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player);
+        checkIfState = checkTheAmountOfChips(gridOneOnlyOneRow, input_row_now_int, input_column_now_int,
+                input_row_new_int, input_column_new_int, player, next_player);
 
         System.out.println("checkIfState: " + checkIfState);
 
         if(checkIfState >= 3) {
             System.out.println("You can't move, because next player have 3 or more chips in a row");
-            Main.game(chipsLocation, grid, player, next_player);
+            MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
         }
         else if (checkIfState == 2){
             System.out.println("You can't move if your coorinates are the same as the coordinates of the next player's chip, when he has 2 chips near each another");
             if(Objects.equals(gridOneOnlyOneRow[input_column_new_int*10+input_row_new_int], next_player)){
                 if(Objects.equals(gridOneOnlyOneRow[input_column_new_int*10+input_row_new_int+1], next_player) || Objects.equals(gridOneOnlyOneRow[input_column_new_int*10+input_row_new_int-1], next_player)){
                     System.out.println("You can't move");
-                    Main.game(chipsLocation, grid, player, next_player);
+                    MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
                 }
                 else{
                     System.out.println("OK, you can move");
-                    moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
+                    moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
+                            input_column_new_int, player, next_player, chipsLocation, grid);
                 }
             } else {
                 System.out.println("OK, you can move");
-                moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
+                moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
+                        input_column_new_int, player, next_player, chipsLocation, grid);
             }
         }
         else{
-            moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int, input_column_new_int, player, next_player, chipsLocation, grid);
+            moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
+                    input_column_new_int, player, next_player, chipsLocation, grid);
         }
 
     }
@@ -72,28 +78,34 @@ public class CellRules {
         int numberOFAnoutherPlayerChips = 0;
 
         int unknown = 0;
-        if(input_column_new_int == 1) {
-            unknown = 9 - input_row_new_int;
-        } else {
-            unknown = input_row_new_int;
-        }
-        int DifOfCells = input_column_now_int * 10 + input_row_now_int - (input_column_new_int * 10 + unknown) + 1;
+        int DifOfCells = 0;
+
+        DifOfCells = CellsDif.DifOfCells(DifOfCells, input_row_now_int, input_column_now_int,
+                input_row_new_int, input_column_new_int, unknown);
 
         System.out.println("liczba: " + Math.abs(DifOfCells));
 
         //
         int control = 0;
+        int controlLength = 0;
+
         String[] newArrayOfChips = new String[Math.abs(DifOfCells)];
         for (int i = 0; i < gridOneOnlyOneRow.length; i++) {
-            if (i > input_column_now_int * 10 + input_row_now_int && i <= input_column_new_int * 10 + unknown) {
-                System.out.println("i: " + i);
-                System.out.println("gridOneOnlyOneRow[i]: " + gridOneOnlyOneRow[i]);
-                //add the chips to the new array
-                newArrayOfChips[i - control] = gridOneOnlyOneRow[i];
+            if (i > input_column_now_int * 10 + input_row_now_int) {
+                if(controlLength >= Math.abs(DifOfCells)){
+                    break;
+                } else {
+                    System.out.println("i: " + i);
+                    System.out.println("gridOneOnlyOneRow[i]: " + gridOneOnlyOneRow[i]);
+                    //add the chips to the new array
+                    newArrayOfChips[i - control] = gridOneOnlyOneRow[i];
+                    controlLength++;
+                }
             } else {
                 control++;
             }
         }
+
         System.out.println("newArrayOfChips: " + Arrays.toString(newArrayOfChips));
 
         for (int i = 0; i < newArrayOfChips.length; i++) {
