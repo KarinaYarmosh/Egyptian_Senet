@@ -15,19 +15,34 @@ public class RulesOfGrid {
           //grid coordinates: row - 1, column - 5
           System.out.println("YOUR CELL: " + chipsLocation[input_column_new_int][input_row_new_int]);
 
-//          //print chipsLocation
-//          for(int i = 0; i < 3; i++){
-//               for(int j = 0; j < 10; j++){
-//                    System.out.print(chipsLocation[i][j] + " ");
-//               }
-//               System.out.println();
-//          }
-
           if(input_column_new_int == 1 && input_row_new_int == 5){
           System.out.println("YOUR NEW COORDINATES");
-               //if chipsLocation[input_column_new_int][input_row_new_int] == next_player
                if(Objects.equals(chipsLocation[input_column_new_int][input_row_new_int - 1], next_player)){
                     System.out.println("You can't move, because next player is sitting on the grid");
+                    return true;
+               }
+          }
+
+          else if(input_column_new_int == 2 && input_row_new_int == 5){
+               if(Objects.equals(chipsLocation[input_column_new_int][input_row_new_int], next_player)){
+                    System.out.println("You can't move, because next player is sitting on the grid");
+                    return true;
+               }
+          }
+
+          else if((input_column_new_int == 2 && input_row_new_int == 9) ||
+                  (input_column_new_int == 2 && input_row_new_int == 8) ||
+                  (input_column_new_int == 2 && input_row_new_int == 7)){
+               System.out.println("Coordinates need to check");
+               if(Objects.equals(chipsLocation[input_column_now_int][input_row_now_int], player) &&
+                       (input_column_now_int == 2 && input_row_now_int == 5)){
+//                    cells.RulesOfEndCells.RulesOfDigitalCells(input_row_now_int, input_column_now_int,
+//                            input_row_new_int, input_column_new_int, player, next_player, gridOneOnlyOneRow,
+//                            grid, stickRoll, chipsLocation);
+                    //check if empty ---> false
+               }
+               else{
+                    System.out.println("You can't move, because you are not sitting on the right grid");
                     return true;
                }
           }

@@ -3,6 +3,7 @@ package cells;
 import chips.MoveTheChip;
 import chips.MovesChips;
 import gridRules.RulesOfGrid;
+import skicks.StickMechanics;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -66,21 +67,61 @@ public class RulesOfTheGame {
 
         System.out.println("OK, you can move");
         //need to check the grid
-        boolean check = false;
-
-        check = RulesOfGrid.Rules(input_row_now_int, input_column_now_int, input_row_new_int,
-                input_column_new_int, player, next_player, gridOneOnlyOneRow, grid, stickRoll, chipsLocation);
-
-        System.out.println("check: " + check);
-
-        if(check){
-            System.out.println("wewnatrz check");
-            MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
-        } else {
-            MoveTheChip.moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
-                    input_column_new_int, player, next_player, chipsLocation, grid);
+        if(input_row_new_int == 6 && input_column_new_int == 2){
+                System.out.println("It's a lake");
+                checkFunction(player, next_player, chipsLocation, grid, stickRoll);
         }
 
+        else {
+            boolean check = false;
+
+            check = RulesOfGrid.Rules(input_row_now_int, input_column_now_int, input_row_new_int,
+                    input_column_new_int, player, next_player, gridOneOnlyOneRow, grid, stickRoll, chipsLocation);
+
+            System.out.println("check: " + check);
+
+            if (check) {
+                System.out.println("Try again");
+                MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
+            } else {
+                MoveTheChip.moves(chipsLocationOne, input_row_now_int, input_column_now_int, input_row_new_int,
+                        input_column_new_int, player, next_player, chipsLocation, grid);
+            }
+        }
+
+    }
+
+
+    public static void checkFunction(String player, String next_player, String[][] chipsLocation,
+                                     String[][] grid, int stickRoll) throws IOException{
+
+        for(int i = 1; i >= 0; i--){
+            String temp = "0";
+
+            if(i == 1) {
+                for (int j = 0; j < 5; j++) {
+                    if (Objects.equals(chipsLocation[i][j + 5], temp)) {
+                        chipsLocation[i][j + 5] = player;
+                        int stickRollTemp = StickMechanics.rollStick(stickRoll);
+                        //change players!!!!!!
+                        MovesChips.moveChips(chipsLocation, grid, stickRollTemp, next_player, player);
+                    }
+                }
+            }
+
+            else {
+                for (int j = 9; j > 4; j--) {
+                    if (Objects.equals(chipsLocation[i][j], temp)) {
+                        chipsLocation[i][j] = player;
+                        int stickRollTemp = StickMechanics.rollStick(stickRoll);
+                        //change players!!!!!!
+                        MovesChips.moveChips(chipsLocation, grid, stickRollTemp, next_player, player);
+                    }
+                }
+            }
+
+
+        }
     }
 
 }
