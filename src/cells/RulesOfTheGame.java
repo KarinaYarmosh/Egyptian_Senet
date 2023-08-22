@@ -72,6 +72,26 @@ public class RulesOfTheGame {
                 checkFunction(player, next_player, chipsLocation, grid, stickRoll);
         }
 
+        else if((input_column_now_int == 2 && input_row_now_int == 9) ||
+                (input_column_now_int == 2 && input_row_now_int == 8) ||
+                (input_column_now_int == 2 && input_row_now_int == 7)){
+            if (input_column_new_int == 2 && input_row_new_int == 10){
+                if(stickRoll == 10 - input_row_now_int){
+                    System.out.println("You can move");
+                    chipsLocation[input_column_now_int][input_row_now_int] = "0";
+                    int stickRollTemp = StickMechanics.rollStick(stickRoll);
+                    MovesChips.moveChips(chipsLocation, grid, stickRollTemp, next_player, player);
+                }
+                else{
+                    System.out.println("You can move move only out of the grid");
+                    MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
+                }
+            } else{
+                System.out.println("You can move move only out of the grid");
+                MovesChips.move(chipsLocation, grid, player, stickRoll, next_player);
+            }
+        }
+
         else {
             boolean check = false;
 
@@ -119,7 +139,6 @@ public class RulesOfTheGame {
                     }
                 }
             }
-
 
         }
     }

@@ -36,10 +36,10 @@ public class RulesOfGrid {
                System.out.println("Coordinates need to check");
                if(Objects.equals(chipsLocation[input_column_now_int][input_row_now_int], player) &&
                        (input_column_now_int == 2 && input_row_now_int == 5)){
-//                    cells.RulesOfEndCells.RulesOfDigitalCells(input_row_now_int, input_column_now_int,
-//                            input_row_new_int, input_column_new_int, player, next_player, gridOneOnlyOneRow,
-//                            grid, stickRoll, chipsLocation);
-                    //check if empty ---> false
+                    if(Objects.equals(chipsLocation[input_column_new_int][input_row_new_int], next_player)){
+                         System.out.println("You can't move, because you are not sitting on the right grid");
+                         return true;
+                    }
                }
                else{
                     System.out.println("You can't move, because you are not sitting on the right grid");
